@@ -11,10 +11,12 @@ export async function main(ns) {
 		}else if(ns.getServerMaxRam(server) <= 5){
 			if(!nnr.includes(server)){
 				ns.tprint('Not enough ram : '+server)
+				addscanned(server)
 				nnr.push(server)
 			}
 		}else if(ns.hasRootAccess(server)){
 			if(ns.fileExists("proofhack.txt", server)){
+				addscanned(server)
 				hacked.push(server)
 			}else{
 				ns.scp("hacking.js", server, "home")
@@ -84,5 +86,13 @@ export async function main(ns) {
 
 		// ADD THE SERVER TO THE HACKED LIST
 		hacked.push(server)
+	}
+
+	function addscanned(server){
+		// ADD THE SCANNED SERVERS TO THE LIST
+		let scannedhack = ns.scan(server)
+		scannedhack.forEach(c => {
+			scanned.push(c)
+		})
 	}
 }
