@@ -46,6 +46,7 @@ export async function main(ns) {
 			ns.scp("ram.js", server, "home")
 			hackserver(server)
 		}else{
+			addscanned(server)
 			ns.tprint('CANNOT HACK '+server)
 		}
 		await ns.sleep(100)
