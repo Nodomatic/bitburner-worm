@@ -1,8 +1,8 @@
 # bitburner-worm
 
 TODO : 
-  V Add a port checker
-  - Add a loop (check if you have a new port bruteforce / check for new level)
+  - [x] Add a port checker
+  - [ ] Add a loop (check if you have a new port bruteforce / check for new level)
   
 This script let you hack every server possible that you can hack. How does it works? It's pretty simple :
   - The script scan each servers and check its ram and its hacking level
