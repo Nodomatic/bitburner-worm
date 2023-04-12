@@ -3,6 +3,7 @@ export async function main(ns) {
 	let scanned = ns.scan()
 	let hacked = ["home"]
 	let nnr = ["home", "tor", "n00dles"]
+	var porthackingTotal = checkcrackport()
 	var i = 0
 	while(i < scanned.length){
 		let server = scanned[i]
@@ -25,26 +26,31 @@ export async function main(ns) {
 				hackserver(server)
 			}
 		}else if(ns.getServerRequiredHackingLevel(server) <= ns.getHackingLevel()){
-			if (ns.fileExists("BruteSSH.exe", "home")) {
-				ns.brutessh(server);
+			if(porthackingTotal <= ns.getServerNumPortsRequired(server)){
+				if (ns.fileExists("BruteSSH.exe", "home")) {
+					ns.brutessh(server);
+				}
+				if (ns.fileExists("FTPCrack.exe", "home")) {
+					ns.ftpcrack(server);
+				}
+				if (ns.fileExists("relaySMTP.exe", "home")) {
+					ns.relaysmtp(server);
+				}
+				if (ns.fileExists("HTTPWorm.exe", "home")) {
+					ns.httpworm(server);
+				}
+				if (ns.fileExists("SQLInject.exe", "home")) {
+					ns.sqlinject(server);
+				}
+				ns.nuke(server)
+				ns.scp("hacking.js", server, "home")
+				ns.scp("grow.js", server, "home")
+				ns.scp("ram.js", server, "home")
+				hackserver(server)
+			}else{
+				addscanned(server)
+				ns.tprint('CANNOT HACK '+server)
 			}
-			if (ns.fileExists("FTPCrack.exe", "home")) {
-				ns.ftpcrack(server);
-			}
-			if (ns.fileExists("relaySMTP.exe", "home")) {
-				ns.relaysmtp(server);
-			}
-			if (ns.fileExists("HTTPWorm.exe", "home")) {
-				ns.httpworm(server);
-			}
-			if (ns.fileExists("SQLInject.exe", "home")) {
-				ns.sqlinject(server);
-			}
-			ns.nuke(server)
-			ns.scp("hacking.js", server, "home")
-			ns.scp("grow.js", server, "home")
-			ns.scp("ram.js", server, "home")
-			hackserver(server)
 		}else{
 			addscanned(server)
 			ns.tprint('CANNOT HACK '+server)
@@ -95,5 +101,24 @@ export async function main(ns) {
 		scannedhack.forEach(c => {
 			scanned.push(c)
 		})
+	}
+
+	function checkcrackport(){
+		let x = 0
+		if (ns.fileExists("BruteSSH.exe", "home")) {
+			x++
+		}
+		if (ns.fileExists("FTPCrack.exe", "home")) {
+			x++
+		}
+		if (ns.fileExists("relaySMTP.exe", "home")) {
+			x++
+		}
+		if (ns.fileExists("HTTPWorm.exe", "home")) {
+			x++
+		}
+		if (ns.fileExists("SQLInject.exe", "home")) {
+			x++
+		}
 	}
 }
