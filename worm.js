@@ -3,27 +3,34 @@ export async function main(ns) {
 	let scanned = ns.scan()
 	let hacked = ["home"]
 	let nnr = ["home", "tor", "n00dles"]
+	let alreadyscanned = []
 	var porthackingTotal = checkcrackport()
 	var i = 0
 	while(i < scanned.length){
 		let server = scanned[i]
-		if(hacked.includes(server)){
-			ns.tprint('Already hacked : '+server)
+		if(alreadyscanned.includes(server)){
+			ns.tprint('already scanned '+server)
+		}else if(hacked.includes(server) || nnr.includes(server)){
+			ns.tprint('Already hacked / not enough ram : '+server)
+			alreadyscanned.push(server)
 		}else if(ns.getServerMaxRam(server) <= 5){
 			if(!nnr.includes(server)){
 				ns.tprint('Not enough ram : '+server)
 				addscanned(server)
 				nnr.push(server)
+				alreadyscanned.push(server)
 			}
 		}else if(ns.hasRootAccess(server)){
 			if(ns.fileExists("proofhack.txt", server)){
 				addscanned(server)
 				hacked.push(server)
+				alreadyscanned.push(server)
 			}else{
 				ns.scp("hacking.js", server, "home")
 				ns.scp("grow.js", server, "home")
 				ns.scp("ram.js", server, "home")
 				hackserver(server)
+				alreadyscanned.push(server)
 			}
 		}else if(ns.getServerRequiredHackingLevel(server) <= ns.getHackingLevel()){
 			if(porthackingTotal <= ns.getServerNumPortsRequired(server)){
@@ -47,15 +54,18 @@ export async function main(ns) {
 				ns.scp("grow.js", server, "home")
 				ns.scp("ram.js", server, "home")
 				hackserver(server)
+				alreadyscanned.push(server)
 			}else{
 				addscanned(server)
+				alreadyscanned.push(server)
 				ns.tprint('CANNOT HACK '+server)
 			}
 		}else{
 			addscanned(server)
+			alreadyscanned.push(server)
 			ns.tprint('CANNOT HACK '+server)
 		}
-		await ns.sleep(100)
+		await ns.sleep(10)
 		i++
 	}
 	ns.tprint(`\n\n\n------------------------------------------------\n\n`)
