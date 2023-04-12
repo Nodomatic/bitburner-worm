@@ -33,7 +33,7 @@ export async function main(ns) {
 				alreadyscanned.push(server)
 			}
 		}else if(ns.getServerRequiredHackingLevel(server) <= ns.getHackingLevel()){
-			if(porthackingTotal <= ns.getServerNumPortsRequired(server)){
+			if(porthackingTotal >= ns.getServerNumPortsRequired(server)){
 				if (ns.fileExists("BruteSSH.exe", "home")) {
 					ns.brutessh(server);
 				}
@@ -130,5 +130,6 @@ export async function main(ns) {
 		if (ns.fileExists("SQLInject.exe", "home")) {
 			x++
 		}
+		return x
 	}
 }
