@@ -1,4 +1,7 @@
 /** @param {NS} ns */
+
+//to loop : remove alreadyscanned and check everything except alreadyscanned (hacked, etc...)
+
 export async function main(ns) {
 	let scanned = ns.scan()
 	let hacked = ["home"]
