@@ -9,8 +9,6 @@ export async function main(ns) {
 		if(hackinglvlb < hackinglvl){
 			hackinglvlb = hackinglvl
 			ns.run("worm.js")
-		}else{
-			ns.sleep(100)
 		}
 		await ns.sleep(timetowait * 1000)
 	}
