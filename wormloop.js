@@ -3,13 +3,14 @@ export async function main(ns) {
 	const timetowait = 60
 	var hackinglvl;
 	var hackinglvlb = 0
+	ns.tprint('TO KILL THE LOOP : kill '+ns.pid)
 	while(true){
 		hackinglvl = ns.getHackingLevel()
 		if(hackinglvlb < hackinglvl){
 			hackinglvlb = hackinglvl
 			ns.run("worm.js")
 		}else{
-			ns.tprint('TO KILL THE LOOP : kill '+ns.pid)
+			ns.sleep(100)
 		}
 		await ns.sleep(timetowait * 1000)
 	}

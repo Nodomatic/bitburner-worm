@@ -1,7 +1,7 @@
 /** @param {NS} ns */
 
 //to loop : remove alreadyscanned and check everything except alreadyscanned (hacked, etc...)
-
+const debug = false
 export async function main(ns) {
 	let scanned = ns.scan()
 	let hacked = ["home"]
@@ -12,13 +12,13 @@ export async function main(ns) {
 	while(i < scanned.length){
 		let server = scanned[i]
 		if(alreadyscanned.includes(server)){
-			ns.tprint('already scanned '+server)
+			if(debug == true) ns.tprint('already scanned '+server)
 		}else if(hacked.includes(server) || nnr.includes(server)){
-			ns.tprint('Already hacked / not enough ram : '+server)
+			if(debug == true) ns.tprint('Already hacked / not enough ram : '+server)
 			alreadyscanned.push(server)
 		}else if(ns.getServerMaxRam(server) <= 5){
 			if(!nnr.includes(server)){
-				ns.tprint('Not enough ram : '+server)
+				if(debug == true) ns.tprint('Not enough ram : '+server)
 				addscanned(server)
 				nnr.push(server)
 				alreadyscanned.push(server)
@@ -61,20 +61,21 @@ export async function main(ns) {
 			}else{
 				addscanned(server)
 				alreadyscanned.push(server)
-				ns.tprint('CANNOT HACK '+server)
+				if(debug == true) ns.tprint('CANNOT HACK '+server)
 			}
 		}else{
 			addscanned(server)
 			alreadyscanned.push(server)
-			ns.tprint('CANNOT HACK '+server)
+			if(debug == true) ns.tprint('CANNOT HACK '+server)
 		}
 		await ns.sleep(10)
 		i++
 	}
-	ns.tprint(`\n\n\n------------------------------------------------\n\n`)
+	if(debug == true) ns.tprint(`\n\n\n------------------------------------------------\n\n`)
 	hacked.forEach(hackedserv => {
-		ns.tprint("Hacked : "+hackedserv)
+		if(debug == true) ns.tprint("Hacked : "+hackedserv)
 	})
+	if (debug == false) ns.tprint("Hacked : "+hacked)
 
 	function hackserver(server){
 		// hacking, ram and grow already on the server
