@@ -4,7 +4,7 @@
 const debug = false
 export async function main(ns) {
 	let scanned = ns.scan()
-	let hacked = ["home"]
+	let hacked = []
 	let nnr = ["home", "tor", "n00dles"]
 	let alreadyscanned = []
 	var porthackingTotal = checkcrackport()
