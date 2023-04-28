@@ -15,6 +15,7 @@ export async function main(ns) {
 			if(debug == true) ns.tprint('already scanned '+server)
 		}else if(hacked.includes(server) || nnr.includes(server)){
 			if(debug == true) ns.tprint('Already hacked / not enough ram : '+server)
+			addscanned(server)
 			alreadyscanned.push(server)
 		}else if(ns.getServerMaxRam(server) <= 5){
 			if(!nnr.includes(server)){
