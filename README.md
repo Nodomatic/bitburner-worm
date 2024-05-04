@@ -23,4 +23,5 @@ Common errors :
 
 TODO : 
   - [x] Add a port checker
-  - [ ] Add a loop (check if you have a new port bruteforce / check for new level)
+  - [x] Add a loop (check if you have a new port bruteforce / check for new level)
+  - [ ] Add a backdoor loop? (or maybe add a way to easily backdoor people)
